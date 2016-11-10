@@ -26,22 +26,22 @@ class ViewController: UIViewController {
         let devices = AVCaptureDevice.devices()
 
         // Loop through all the capture devices on this phone
-        for device in devices {
-            // Make sure this particular device supports video
-            if (device.hasMediaType(AVMediaTypeVideo)) {
+        for device in devices! {
+            if let device = device as? AVCaptureDevice,
+                // Make sure this particular device supports video
+                device.hasMediaType(AVMediaTypeVideo) {
+
                 // Finally check the position and confirm we've got the back camera
-                if(device.position == AVCaptureDevicePosition.Back) {
-                    captureDevice = device as? AVCaptureDevice
-                    if captureDevice != nil {
-                        print("Capture device found")
-                        beginSession()
-                    }
+                if(device.position == AVCaptureDevicePosition.back) {
+                    captureDevice = device
+                    print("Capture device found")
+                    beginSession()
                 }
             }
         }
     }
 
-    func updateDeviceSettings(focusValue : Float, isoValue : Float) {
+    func updateDeviceSettings(_ focusValue : Float, isoValue : Float) {
         if let device = captureDevice {
             do {
                 try device.lockForConfiguration()
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
                 let maxISO = device.activeFormat.maxISO
                 let clampedISO = isoValue * (maxISO - minISO) + minISO
 
-                device.setExposureModeCustomWithDuration(AVCaptureExposureDurationCurrent, ISO: clampedISO, completionHandler: { (time) -> Void in })
+                device.setExposureModeCustomWithDuration(AVCaptureExposureDurationCurrent, iso: clampedISO, completionHandler: { (time) -> Void in })
 
                 device.unlockForConfiguration()
             } catch {
@@ -62,42 +62,42 @@ class ViewController: UIViewController {
         }
     }
 
-    func touchPercent(touch : UITouch) -> CGPoint {
+    func touchPercent(_ touch : UITouch) -> CGPoint {
         // Get the dimensions of the screen in points
-        let screenSize = UIScreen.mainScreen().bounds.size
+        let screenSize = UIScreen.main.bounds.size
 
         // Create an empty CGPoint object set to 0, 0
-        var touchPer = CGPointZero
+        var touchPer = CGPoint.zero
 
         // Set the x and y values to be the value of the tapped position, divided by the width/height of the screen
-        touchPer.x = touch.locationInView(self.view).x / screenSize.width
-        touchPer.y = touch.locationInView(self.view).y / screenSize.height
+        touchPer.x = touch.location(in: self.view).x / screenSize.width
+        touchPer.y = touch.location(in: self.view).y / screenSize.height
 
         // Return the populated CGPoint
         return touchPer
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchPer = touchPercent(touch)
             updateDeviceSettings(Float(touchPer.x), isoValue: Float(touchPer.y))
         }
-        super.touchesBegan(touches, withEvent:event)
+        super.touchesBegan(touches, with:event)
     }
 
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let touchPer = touchPercent(touch)
             updateDeviceSettings(Float(touchPer.x), isoValue: Float(touchPer.y))
         }
-        super.touchesBegan(touches, withEvent:event)
+        super.touchesBegan(touches, with:event)
     }
 
     func configureDevice() {
         if let device = captureDevice {
             do {
                 try device.lockForConfiguration()
-                device.focusMode = .Locked
+                device.focusMode = .locked
                 device.unlockForConfiguration()
             } catch {
                 print("can't lock the device")
