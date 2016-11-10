@@ -162,9 +162,11 @@
 					02F5BDDF19CE1C4900EDFD47 = {
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = J6H4826VVV;
+						LastSwiftMigration = 0810;
 					};
 					02F5BDF419CE1C4900EDFD47 = {
 						CreatedOnToolsVersion = 6.1;
+						LastSwiftMigration = 0810;
 						TestTargetID = 02F5BDDF19CE1C4900EDFD47;
 					};
 				};
@@ -341,6 +343,7 @@
 				INFOPLIST_FILE = CameraTutorial/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -352,6 +355,7 @@
 				INFOPLIST_FILE = CameraTutorial/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -370,6 +374,7 @@
 				INFOPLIST_FILE = CameraTutorialTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CameraTutorial.app/CameraTutorial";
 			};
 			name = Debug;
@@ -385,6 +390,7 @@
 				INFOPLIST_FILE = CameraTutorialTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CameraTutorial.app/CameraTutorial";
 			};
 			name = Release;
